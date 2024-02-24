@@ -2,16 +2,14 @@ from program_modules import videogame_database as vgdb
 from program_modules import garbage_strings as gs
 from program_modules import html_generator as htmlg
 from program_modules import wikipedia_scraper as wks
-import sqlite3, os, typing
+from program_modules import gui
+import sqlite3, os, typing, webbrowser
 
-extremity_coeficient = 20
 
-def make_site():
+def make_site(extremity_coeficient: int):
     if not os.path.exists("./data/"):
-        print("El directorio de datos no existe. Descargue de nuevo la aplicacion.")
-        input()
-        exit()
-
+        return 1 #Fail 1: NO DATA
+    
     print("Eligiendo juego...")
 
     VideoDB = vgdb.VideogameDatabase() 
@@ -30,9 +28,6 @@ def make_site():
     article_content["download_link_text"] = gs.generate_string(gs.downloadstrs["download"], 1, 3*extremity_coeficient, " ")
     article_content["download_link"] = gs.generate_url(VGData.name)
 
-    if (article_content["__error__"] == "1"):
-        print("No se pudo scrapear wikipedia.")
-
     print("Guardando...")
 
     PageGen = htmlg.HtmlGenerator()
@@ -43,7 +38,16 @@ def make_site():
     print("Juego usado:", VGData.name)
     print("-----------------------------------")
 
+    if (article_content["__error__"] == "1"):
+        print("No se pudo scrapear wikipedia.")
+        return 2 #FAIL 2: NO CONNECTION
 
+    return 0 #Sucess
+
+def open_built_site():
+    webbrowser.open("file://"+os.path.realpath("./out/page.html"))
 
 if __name__ == "__main__":
-    make_site()
+    window = gui.Gui(make_site, open_built_site)
+    window.make_main_window()
+    window.mainloop()

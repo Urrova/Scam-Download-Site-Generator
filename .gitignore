@@ -1,1 +1,3 @@
 out/page.html
+*.pyc
+.vscode/
