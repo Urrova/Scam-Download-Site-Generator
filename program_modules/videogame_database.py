@@ -13,7 +13,7 @@ class VideogameDatabase:
         self.cursor: sqlite3.Cursor = None
     
     def connect(self):
-        self.connection = sqlite3.connect("./databases/videogames.db")
+        self.connection = sqlite3.connect("./data/databases/videogames.db")
         self.cursor = self.connection.cursor()
 
     def get_games_quantity(self) -> int:
@@ -30,18 +30,18 @@ class VideogameDatabase:
     def get_game(self, gameid: int):
         #Encuentra el juego y saca el nombre y el ID del genero
         table = self.cursor.execute("SELECT * FROM game WHERE id=?", (str(gameid), )).fetchall()
-        game_genre_id = table[0][1]
-        game_name = table[0][2]
+        game_genre_id: int = table[0][1]
+        game_name: str = table[0][2]
 
         #Encuentra el nombre del genero
         table = self.cursor.execute("SELECT * FROM genre WHERE id=?", (str(game_genre_id), )).fetchall()
-        genre_name = table[0][1]
+        genre_name: str = table[0][1]
 
         #Encuentra el ID del publisher y luego al publisher
         table = self.cursor.execute("SELECT * FROM game_publisher WHERE game_id=?", (str(gameid), )).fetchall()
-        publisher_id = table[0][2]
+        publisher_id: int = table[0][2]
         table = self.cursor.execute("SELECT * FROM publisher WHERE id=?", (str(publisher_id), )).fetchall()
-        publisher_name = table[0][1]
+        publisher_name: str = table[0][1]
 
         VGData = VideogameData(gameid, game_name, genre_name, publisher_name)
 
