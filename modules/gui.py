@@ -10,7 +10,7 @@ class Gui(tk.Tk):
         self.make_function: function = make_function
         self.open_built_function: function = open_built_function
 
-        self.title_image = tk.PhotoImage(file="./data/img/title.png")
+        self.title_image = tk.PhotoImage(file="./data/img/ui/title.png")
 
         self.extremity_value: tk.DoubleVar = tk.DoubleVar(value=1.0)
 

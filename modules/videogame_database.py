@@ -15,6 +15,10 @@ class VideogameDatabase:
     def connect(self):
         self.connection = sqlite3.connect("./data/databases/videogames.db")
         self.cursor = self.connection.cursor()
+    
+    def close_connection(self):
+        self.connection.close()
+        self.cursor = None
 
     def get_games_quantity(self) -> int:
         games_quantity_table = self.cursor.execute("SELECT COUNT(Id) as count_games FROM game").fetchall()

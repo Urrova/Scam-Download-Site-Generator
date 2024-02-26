@@ -1,4 +1,4 @@
-import typing
+import typing, os, base64
 
 #Clase que genera todo el HTML resultante.
 class HtmlGenerator:
@@ -25,4 +25,17 @@ class HtmlGenerator:
     def generate_page(self, vars:typing.Dict):
         self.read_template("./data/html/template.html")
         self.replace_vars(vars)
+        if not os.path.exists("./out/"):
+            os.makedirs("./out/")
         self.write_page("./out/page.html")
+
+#Abre una imagen, la convierte a base64 y la mete en un tag img
+def image_to_img_base64(path: str, image_type: str, attr: str=""):
+    image_base64:str = ""
+    image_tag:str = ""
+    with open(path, "rb") as image_file:
+        image_data = image_file.read()
+        image_base64 = base64.b64encode(image_data).decode("ascii")
+        image_tag = "<img src='data:image/"+image_type+";base64,"+image_base64+"' "+attr+">"
+        image_file.close()
+    return image_tag

@@ -1,3 +1,7 @@
-out/page.html
+out/
+out/*
 *.pyc
 .vscode/
+*.spec
+build/
+dist/

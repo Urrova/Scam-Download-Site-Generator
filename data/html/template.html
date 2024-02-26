@@ -7,6 +7,9 @@
     </head>
     <body>
         <style>
+            body{
+                background-color: %c_page_background_color%;
+            }
             img{
                 display: block;
                 margin-left: auto;
@@ -20,11 +23,14 @@
                 margin-bottom: 2%;
                 padding: 2%;
                 border: 2px solid black;
+                background-color: %c_article_background_color%;
             }
             .navbar{
                 border: 2px solid black;
                 margin: 0.5%;
                 padding: 1%;
+                background-color: %c_article_background_color%;
+                overflow: hidden;
             }
             footer{
                 display: block;
@@ -32,6 +38,12 @@
                 margin-right: auto;
                 font-size: small;
                 color: gray;
+            }
+            h1, h2, h3, a, p{
+                font-family: %font_face%;
+            }
+            .smallimage{
+                width:10%;
             }
         </style>
         <div>
@@ -43,6 +55,7 @@
             <img src="%image%">
             <p>%description%</p>
             <p>%resume%</p>
+            %download_image%
             <p><h3>%download_link_text% <a href="https://youareanidiot.cc/">%download_link%</a></h3></p>
         </article>
         <footer>
